@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Register{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{% static 'accounts/css/vendor_register.css'%}">{% endblock css %}
+{% block content %}
+<div class="container-fluid main">
+    <div class="wrapper ">
+        <div class="form-box login">
+            <h2>Vendor Register</h2>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" name="first_name" required>
+                    <label for="">First Name</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" name="last_name" required>
+                    <label for="">Last Name</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person-circle"></ion-icon></span>
+                    <input type="text" name="username" required>
+                    <label for="">Username</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="email" required>
+                    <label for="">Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="mobile_no" required>
+                    <label for="">mobile_no</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="cnic" required>
+                    <label for="">CNIC (without dashe)</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="address1" required>
+                    <label for="">Address Line 1</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="address2" required>
+                    <label for="">Address Line 2</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="city" required>
+                    <label for="">City</label>
+                </div>
+                <div class="input-box">
+                    {% comment %} <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="province" required>
+                    <label for="">Province</label> {% endcomment %}
+                    <select class="form-select input" name="province">
+                        {% for choice in form.province.field.choices %}
+                          <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                        {% endfor %}
+                      </select>
+                </div>
+                <div class="input-box">
+                    {% comment %} <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="employee" required>
+                    <label for="">Employee</label> {% endcomment %}
+                    <select class="form-select input" name="employee">
+                        {% for choice in form.employee.field.choices %}
+                          <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                        {% endfor %}
+                      </select>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="shop_reference" required>
+                    <label for="">Shop Reference</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="file" name="vendor_image" required>
+                    {% comment %} <label for="">Profile Image</label> {% endcomment %}
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="password1" required>
+                    <label for="">Password</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="password2" required>
+                    <label for="">Confirm Password</label>
+                </div>
+
+                <button type="submit" class="submit-register-btn">Register</button>
+
+                {% comment %} <div class="login-as-service-provider">
+                    <p>Register as Client! <a href="{% url "accounts:user_register_view" %}" class="login-link">Register</a></p>
+                </div> {% endcomment %}
+                <div class="login-register">
+                    <p>Already have an account? <a href="{% url "accounts:user_login_view" %}" class="register-link">Login</a></p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

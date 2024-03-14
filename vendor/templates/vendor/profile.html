@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'vendor/css/profile.css'%}">{% endblock css %}
+{% block content %}
+{% if vendor_profile %}
+<form action="{% url 'vendor:vendor_profile_edit' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 bg-body rounded mt-4 mb-4">
+                        <div class="row g-2 ms-2 me-2">
+                            <div class="col-md-5 border-end">
+                                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                                    {% if vendor_profile.vendor_image %}
+                                    <img src="{{vendor_profile.vendor_image.url}}" class="rounded mt-5"
+                                        style="width: 150px;">
+                                    {% else %}
+                                    <img src="{% static 'vendor/images/avatar1.png' %}" class="rounded mt-5"
+                                        style="width: 150px;">
+                                    {% endif %}
+                                    <span class="fw-bold">{{vendor_profile.first_name}} {{vendor_profile.last_name}}</span>
+                                    <span class="fw-bold text-black-50">{{vendor_profile.email}}</span>
+                                    <input type="file"  name="vendor_image" class="d-none" id="vendor_image">
+                                    <label for="vendor_image" class="btn btn-primary mt-5">Update Profile Image</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-7 border-end">
+                                <div class="p-3 py-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4 class="fw-bold">Profile Settings</h4>
+                                    </div>
+                                    <div class="row mt-4">
+
+                                        <div class="col-6">
+                                            <label class="form-label">First Name</label>
+                                            <input type="text" id="first_name" name="first_name" class="form-control" value="{{vendor_profile.first_name}}">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">Last Name</label>
+                                            <input type="text" id="last_name" name="last_name" class="form-control" value="{{vendor_profile.last_name}}">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Username</label>
+                                            <input type="text" id="username" name="username" class="form-control" value="{{vendor_profile.username}}">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" id="email" name="email" class="form-control" value="{{vendor_profile.email}}">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">Mobile no</label>
+                                            <input type="text" id="email" name="mobile_no" class="form-control" value="{{vendor_profile.mobile_no}}">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">CNIC (without dashes)</label>
+                                            <input type="text" id="email" name="cnic" class="form-control" value="{{vendor_profile.cnic}}">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Address Line 1</label>
+                                            <input type="text" class="form-control" name="address1" value="{{vendor_profile.address1}}">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Address Line 2</label>
+                                            <input type="text" class="form-control" name="address2" value="{{vendor_profile.address2}}">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">Province</label>
+                                            <select class="form-select input" name="province">
+                                                {% for choice in vendor_profile.CATAGORY_CHOICES %}
+                                                    <option value="{{ choice.0 }}" {% if vendor_profile.province == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">Worker Role</label>
+                                            <select class="form-select input" name="employee">
+                                                {% for choice in vendor_profile.CATAGORY_EMP %}
+                                                    <option value="{{ choice.0 }}" {% if vendor_profile.employee == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">City</label>
+                                            <input type="text" class="form-control" vname="city" value="{{vendor_profile.city}}">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">Shop Reference</label>
+                                            <input type="text" class="form-control" name="shop_reference" value="{{vendor_profile.shop_reference}}">
+                                        </div>
+                                        <div class="col-12 d-grid mt-3">
+                                            <button class="btn btn-primary" type="submit">Update My Profile</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% else %}
+<p>No profile found</p>
+{% endif %}
+{% endblock content %}

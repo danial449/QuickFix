@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Register{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{% static 'accounts/css/register.css'%}">{% endblock css %}
+{% block content %}
+<div class="container-fluid main">
+    <div class="wrapper ">
+        <div class="form-box login">
+            <h2>Register</h2>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" name="first_name" required>
+                    <label for="">First Name</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" name="last_name" required>
+                    <label for="">Last Name</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person-circle"></ion-icon></span>
+                    <input type="text" name="username" required>
+                    <label for="">Username</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="text" name="email" required>
+                    <label for="">Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="call"></ion-icon></span>
+                    <input type="tel" name="mobile_no" required>
+                    <label for="">Mobile no</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                    <input type="file" name="user_image" required>
+                    {% comment %} <label for="">Profile Image</label> {% endcomment %}
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="password1" required>
+                    <label for="">Password</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="password2" required>
+                    <label for="">Confirm Password</label>
+                </div>
+
+                <button type="submit" class="submit-register-btn">Register</button>
+
+                <div class="login-as-service-provider">
+                    <p>Register as Vendor! <a href="{% url "accounts:vendor_register_view" %}" class="login-link">Register</a></p>
+                </div>
+                <div class="login-register">
+                    <p>Already have an account? <a href="{% url "accounts:user_login_view" %}" class="register-link">Login</a></p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

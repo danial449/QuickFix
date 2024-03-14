@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Vendor Dashboard{% endblock title %}
+{% block content %}
+<h2>Vendor Dashboard</h2>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">Service Title</th>
+        <th scope="col">Booking Date</th>
+        <th scope="col">Customer Name</th>
+        <th scope="col">Mobile No</th>
+        <th scope="col">Email</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for booking in bookings %}
+        <tr>
+          <td>{{ booking.service.service_title }}</td>
+          <td>{{ booking.booking_date }}</td>
+          <td>{{ booking.first_name }} {{ booking.last_name }}</td>
+          <td>{{ booking.mobile_no }}</td>
+          <td>{{ booking.email }}</td>
+          <td>
+          {% if booking.status == "Booked" %}
+          <a href="{% url 'vendor:approve_booking' booking.id 'Booked' %}" class="btn btn-success disabled">Book</a>
+          <a href="{% url 'vendor:approve_booking' booking.id 'Cancelled' %}" class="btn btn-danger">Cancel</a>
+          {% elif booking.status == "Cancelled" %}
+          <a href="{% url 'vendor:delete_booking' booking.id%}" class="btn btn-danger">Delete</a>
+          {% else %}
+          <a href="{% url 'vendor:approve_booking' booking.id 'Booked' %}" class="btn btn-success">Book</a>
+          <a href="{% url 'vendor:approve_booking' booking.id 'Cancelled' %}" class="btn btn-danger">Cancel</a>
+          {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No bookings found for the vendor's services.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

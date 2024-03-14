@@ -1,0 +1,227 @@
+.main {
+    min-height: 70vh;
+    background-image: url("https://w0.peakpx.com/wallpaper/141/754/HD-wallpaper-3d-white-texture-white-geometric-texture-3d-white-background-3d-gypsum-white-texture-white-creative-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 50px 0px;
+}
+
+.wrapper {
+    position: relative;
+    width: 400px;
+    min-height: 430px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    border-radius: 0 0 30px rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-message {
+    width: 100%;
+    min-height: 20px;
+    font-size: 1em;
+    font-weight: 500;
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+
+}
+
+.wrapper .form-box h2 {
+    font-size: 2em;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid black;
+    margin: 30px 0;
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #162938;
+    font-weight: 500;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -5px;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #162938;
+    font-weight: 600;
+    padding: 0 35px 0 5px;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #162938;
+    line-height: 57px;
+}
+
+.remember-forget {
+    font-size: .9em;
+    color: #162938;
+    font-weight: 500;
+    margin: -15px 0 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.remember-forget label input {
+    accent-color: #162938;
+    margin-right: 3px;
+}
+
+.remember-forget a {
+    color: #162938;
+    text-decoration: none;
+}
+
+.remember-forget a:hover {
+    text-decoration: underline;
+}
+
+.submit-login-btn {
+    width: 100%;
+    height: 45px;
+    background-color: #162938;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Success Page Style */
+.check-svg {
+    min-height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.check-svg h2 {
+    position: relative;
+    top: 70px;
+}
+
+.cls-1 {
+    fill: none;
+    stroke: #231f20;
+    stroke-miterlimit: 10;
+    stroke-width: 5px;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 150px;
+    height: 150px;
+    display: block;
+
+    .cls-1 {
+        stroke: green;
+    }
+}
+
+.circle {
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+}
+
+.checkmark {
+    stroke-dasharray: 150;
+    stroke-dashoffset: 150;
+}
+
+.run-animation {
+    .circle {
+        animation: 2.5s circleDraw forwards;
+    }
+
+    .checkmark {
+        animation: 0.75s checkmarkDraw forwards;
+        animation-delay: 1s;
+    }
+}
+
+/* Animation */
+
+@keyframes circleDraw {
+    from {
+        stroke-dashoffset: 700;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes checkmarkDraw {
+    from {
+        stroke-dashoffset: 150;
+    }
+
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.button {
+    position: relative;
+    top: -100px;
+    background-color: #162938;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 20px;
+    color: white;
+}
+
+.button:hover {
+    background-color: #162938;
+    color: white;
+
+}
+
+/* %%%%%%%%%%*/

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Services{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'vendor/css/profile.css'%}">{% endblock css %}
+{% block content %}
+{% for service in services %}
+    <!-- Display service information here -->
+    <h2>{{ service.service_title }}</h2>
+    <p>{{ service.description }}</p>
+    <!-- Add other fields as needed -->
+    <form action="{% url 'vendor:book_service' service.id %}" method="post">
+        {% csrf_token %}
+        <button>Book Now</button>
+    </form>
+            
+{% endfor %}
+
+{% endblock content %}

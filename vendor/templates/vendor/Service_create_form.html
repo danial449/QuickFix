@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Add Service{% endblock title %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'vendor/css/profile.css'%}">{% endblock css %}
+{% block content %}
+<form action="" method="post" enctype="multipart/form-data">
+ {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}

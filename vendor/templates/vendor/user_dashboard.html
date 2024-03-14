@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}User Dashboard{% endblock title %}
+{% block content %}
+<h2>User Dashboard</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Service</th>
+      <th>Mobile No</th>
+      <th>Email</th>
+      <th>Booking Date</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for booking_detail in booking_details %}
+      <tr>
+        <td>{{ booking_detail.service_creator.first_name }} {{ booking_detail.service_creator.last_name }}</td>
+        <td>{{ booking_detail.service_creator.username }}</td>
+        <td>{{ booking_detail.booking.service.service_title }}</td>
+        <td>{{ booking_detail.service_creator.mobile_no }}</td>
+        <td>{{ booking_detail.service_creator.email }}</td>
+        <td>{{ booking_detail.booking.booking_date }}</td>
+        <td>
+          {% if booking_detail.booking.status == "Booked" %}
+              <span>{{ booking_detail.booking.status }}</span>
+          {% elif booking_detail.booking.status == "Cancelled" %}
+              <span>{{ booking_detail.booking.status }}</span>
+          {% else %}
+              <span>{{ booking_detail.booking.status }}</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block css %}<link rel="stylesheet" href="{% static 'accounts/css/login.css'%}">{% endblock css %}
+{% block content %}
+<div class="container-fluid main">
+    <div class="wrapper ">
+        <div class="form-box login">
+            <h2>Login</h2>
+            
+            <!-- Error message display -->
+    {% if messages %}
+       {% for message in messages %}
+            <div class="error-message">
+             {{ message }}
+            </div>
+         {% endfor %}
+    {% endif %}
+          <!-- Other HTML content -->
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                    <input type="text" name="username" required>
+                    <label for="">Username</label>
+                </div>
+
+                <div class="input-box">
+                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                    <input type="password" name="password"  required>
+                    <label for="">Password</label>
+                </div>
+
+                <div class="remember-forget">
+                    <label for=""><input type="checkbox"> Remember me</label>
+                    <a href="{% url 'password_reset'%}">Forget Password?</a>
+                </div>
+
+                <button type="submit" class="submit-login-btn">Login</button>
+
+                {% comment %} <div class="login-as-service-provider">
+                    <p>Login as Vendor! <a href="#" class="login-link">Login</a></p>
+                </div> {% endcomment %}
+                <div class="login-register">
+                    <p>Don't have an account? <a href="{% url "accounts:user_register_view" %}" class="register-link">Register</a></p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
