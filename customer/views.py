@@ -12,8 +12,6 @@ from .forms import *
 from .models import *
 from vendor.models import *
 # Create your views here.
-def index(request):
-    return render(request , "customer/home.html")
 def home_view(request):
     return render(request , "customer/home.html")
 def about_us_view(request):
@@ -32,8 +30,10 @@ def contact_us_view(request):
         if form.is_valid():
             form.save()
         else:
-            form = ContactForm()
-    return render(request  , 'contact_us.html' , {'form':form})
+            print(form.errors)
+    else:
+        form = ContactForm()
+    return render(request  , 'customer/contact_us.html' , {'form':form})
 
 # Detial View of profile
 def user_profile_detail_view(request):

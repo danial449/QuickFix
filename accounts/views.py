@@ -112,7 +112,7 @@ def user_login_view(request):
                 msg = 'Invalid Credentials'
             
         else:   
-            msg = 'Error validation form'
+            print(form.errors)
     else:
         form = LoginForm()
     return render(request , 'accounts/login.html', {'form':form , 'msg':msg})

@@ -2,9 +2,11 @@ body {
     background: #f5f5f5;
     margin-top: 0px;
 }
-.flex-grow-1{
+
+.flex-grow-1 {
     margin-bottom: 40px;
 }
+
 .ui-w-80 {
     width: 80px !important;
     height: auto;
@@ -20,11 +22,11 @@ label.btn {
     margin-bottom: 0;
 }
 
-.btn-outline-primary {
+/* .btn-outline-primary {
     border-color: #26B4FF;
     background: transparent;
     color: #26B4FF;
-}
+} */
 
 .btn {
     cursor: pointer;

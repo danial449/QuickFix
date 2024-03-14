@@ -1,111 +1,97 @@
-{% load static %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/header.css'%}">{% endblock css %}
-
-
-
-<div class="upper-header-tagline">
-  <p>Welcome to our service center! We work for you!</p>
-</div>
-
-<!-- navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark ">
-  <div class="container-fluid">
-    <!-- Logo -->
-    <a class="navbar-brand" href="#">Quick Fix Logo</a>
-
-    <!-- Toggle Btn -->
-    <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas"
-      data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Sidebar -->
-    <div class="sidebar offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
-      aria-labelledby="offcanvasNavbarLabel">
-
-      <!-- Sidebar Header -->
-      <div class="offcanvas-header text-white border-bottom">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">QuickFix</h5>
-        <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas"
-          aria-label="Close"></button>
-      </div>
-
-      <!-- Sidebar body -->
-      <div class="offcanvas-body">
-        <!-- <form class="my-3 d-flex mt-3" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-light" type="submit">Search</button>
-              </form> -->
-        <ul class="navbar-nav justify-content-center fs-5 flex-grow-1 pe-3 my-3">
-          <li class="nav-item mx-2">
-            <a class="nav-link active" aria-current="page" href="{% url "customer:home_view" %}">Home</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="{% url "customer:service_view" %}">Services</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="#">About us</a>
-          </li>
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="{% url "blog:post_list" %}">Blogs</a>
-          </li>
-
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="#">Contact us</a>
-          </li>
-
-        {% if user.is_authenticated %}
-          {% if user.is_customer %}
-          <!-- Display customer-specific options -->
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="{% url "vendor:user_dashboard" %}">Your Bookings</a>
-          </li>
-          <li class="nav-item mx-2 dropdown settings">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Settings
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url "customer:user_profile_detail_view" %}">Your Profile</a></li>
-              <li><a class="dropdown-item" href="{% url "password_change" %}">Change Password</a></li>
-            </ul>
-          </li>
-          {% endif %}
-          {% if user.is_vendor %}
-          <!-- Display vendor-specific options -->
-          <li class="nav-item mx-2">
-            <a class="nav-link" href="{% url "vendor:vendor_dashboard" %}">Bookings</a>
-          </li>
-          <li class="nav-item mx-2 dropdown settings">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Settings
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url "vendor:vendor_profile_detail_view" %}">Vendor Profile</a></li>
-              <li><a class="dropdown-item" href="{% url "vendor:my_service_detail_view" id=request.user.id %}">My Services</a></li>
-              <li><a class="dropdown-item" href="{% url "vendor:service_add_view" %}">Add Service</a></li>
-              <li><a class="dropdown-item" href="{% url "password_change" %}">Change Password</a></li>
-            </ul>
-          </li>
-          {% endif %}
-         {% endif %}
-        </ul>
-
-
-
-        {% if user.is_authenticated%}
-        <div class="d-flex justify-content-center align-items-center gap-3 my-3">
-          <a class=" logout-btn login-btn btn btn-outline-light rounded-4" href="{% url "accounts:user_logout_view" %}">Logout</a>
-          
+    <!-- Topbar Start -->
+    <div class="container-fluid bg-light p-0">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center border-start border-end px-3">
+                    <small class="fa fa-phone-alt me-2"></small>
+                    <small>+92 300 1234567</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center border-end px-3">
+                    <small class="far fa-envelope-open me-2"></small>
+                    <small>info@example.com</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center border-end px-3">
+                    <small class="far fa-clock me-2"></small>
+                    <small>Mon - Fri : 09 AM - 09 PM</small>
+                </div>
+            </div>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="btn btn-square border-end border-start" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-square border-end" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-square border-end" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-square border-end" href=""><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
         </div>
-        {% else %}
-        <div class="d-flex justify-content-center align-items-center gap-3 my-3">
-          <a class=" login-btn btn btn-outline-light rounded-4" href="{% url "accounts:user_login_view" %}">Login</a>
-          <a class="text-white text-decoration-none  bg-primary rounded-4 btn " href="{% url "accounts:user_register_view" %}">Sign up</a>
-        </div>
-        {% endif %}
-
-      </div>
     </div>
-  </div>
-</nav>
+    <!-- Topbar End -->
+
+
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0">
+        <a href="index.html" class="navbar-brand d-flex align-items-center">
+            <h1 class="m-0"><i class="fa fa-wrench text-primary me-3"></i>QUICKFIX</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-3 py-lg-0">
+
+                <a href="{% url "customer:home" %}" class="nav-item nav-link">Home</a>
+
+                <a href="{% url "customer:about" %}" class="nav-item nav-link">About Us</a>
+
+                <a href="{% url "customer:service_view" %}" class="nav-item nav-link">Services</a>
+
+                <a href="{% url "blog:post_list" %}" class="nav-item nav-link">Blogs</a>
+
+                {% if user.is_authenticated %}
+
+                {% if user.is_customer %}
+                <a href="{% url "vendor:user_dashboard" %}" class="nav-item nav-link">Your Bookings</a>
+
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Settings</a>
+                    <div class="dropdown-menu bg-light m-0">
+                        <a href="{% url "customer:user_profile_detail_view" %}" class="dropdown-item">Your Profile</a>
+                        <a href="{% url "password_change" %}" class="dropdown-item">Change Password</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if user.is_vendor %}
+                <a href="{% url "vendor:vendor_dashboard" %}" class="nav-item nav-link">Bookings</a>
+
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Settings</a>
+                    <div class="dropdown-menu bg-light m-0">
+                        <a href="{% url "vendor:vendor_profile_detail_view" %}" class="dropdown-item">Your Profile</a>
+                        <a href="{% url "vendor:my_service_detail_view" id=request.user.id %}" class="dropdown-item">My Services</a>
+                        <a href="{% url "vendor:service_add_view" %}" class="dropdown-item">Add Services</a>
+                        <a href="{% url "password_change" %}" class="dropdown-item">Change Password</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% endif %}
+
+                <a href="{% url "customer:contact" %}" class="nav-item nav-link">Contact Us</a>
+
+                {% if user.is_authenticated%}
+                <div class="d-flex justify-content-center align-items-center ">
+                 <a class=" btn text-white bg-primary" href="{% url "accounts:user_logout_view" %}">Logout</a>
+                </div>
+
+                {% else %}
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                 <a class="btn text-white bg-primary" href="{% url "accounts:user_login_view" %}">Login</a>
+                 <a class="text-white bg-primary btn " href="{% url "accounts:user_register_view" %}">Sign up</a>
+               </div>
+               
+               {% endif %}
+
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->

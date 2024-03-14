@@ -6,6 +6,7 @@ class ContactUs(models.Model):
     first_name = models.CharField(max_length = 20)
     last_name = models.CharField(max_length = 20)
     email = models.EmailField(null=False , unique=False)
+    subject = models.CharField(max_length = 200 , default='None')
     message = models.TextField(max_length = 500)
 
     def __str__(self):

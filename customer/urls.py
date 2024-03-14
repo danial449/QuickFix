@@ -4,8 +4,9 @@ from .views import *
 app_name = 'customer'
 
 urlpatterns = [
-    path("", index, name="index"),
-    path("home/", home_view, name="home_view"),
+    path("", home_view, name="home"),
+    path("about/", about_us_view, name="about"),
+    path("contact/", contact_us_view, name="contact"),
     path("contact/", contact_us_view, name="contact_us_view"),
     path("about/", about_us_view, name="about_us_view"),
     path("service/", service_view, name="service_view"),

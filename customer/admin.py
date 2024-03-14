@@ -3,7 +3,7 @@ from .models import *
 # Register your models here.
 
 class Contact_Us_Admin(admin.ModelAdmin):
-    list_display = ('id','first_name' , 'last_name' , 'email' , 'message')
+    list_display = ('id','first_name' , 'last_name' , 'email' , 'subject', 'message')
 admin.site.register(ContactUs , Contact_Us_Admin)
 
 class User_Profile_Admin(admin.ModelAdmin):
