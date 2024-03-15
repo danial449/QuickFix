@@ -31,3 +31,4 @@ admin.site.register(Service_Category , ServiceCategoryAdmin)
 
 
 admin.site.register(Booking)
+admin.site.register(Feedback)

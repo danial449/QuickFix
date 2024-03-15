@@ -41,12 +41,8 @@
                         <img class="img-fluid" src="{{service.service_image.url}}" alt="service image">
                         <div class="service-text position-relative text-center h-100 p-4">
                             <h5 class="mb-3">{{ service.service_title }}</h5>
-                            <p>{{ service.description }}</p>
-                            <form action="{% url 'vendor:book_service' service.id %}" method="post">
-                                {% csrf_token %}
-                                <!-- <button  class="small">BOOK NOW<i class="fa fa-arrow-right ms-3"></i></button> -->
-                                <a class="small" href="">BOOK NOW<i class="fa fa-arrow-right ms-3"></i></a>
-                            </form>
+                            <p>{{ service.description|truncatewords:50|safe }}</p>
+                            <a class="small" href="{% url "vendor:service_detail_view" service.id %}">READ MORE<i class="fa fa-arrow-right ms-3"></i></a>
                         </div>
                     </div>
                 </div>
@@ -55,10 +51,4 @@
         </div>
     </div>
     <!-- Service End -->
-    <script>
-        document.getElementById("bookButton").addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent default anchor behavior
-            document.getElementById("bookForm").submit(); // Submit the form
-        });
-    </script>
 {% endblock content %}

@@ -19,3 +19,8 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ['user', 'service']
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = ['user' , 'service' ,'feedback_text' , 'created_date']

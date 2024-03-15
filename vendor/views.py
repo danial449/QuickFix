@@ -68,6 +68,23 @@ def my_service_detail_view(request, id):
 
     return render(request, 'vendor/my_services.html', {'services': services, 'user': user})
 
+def service_detail_view(request, service_id):
+    service = Service.objects.get(id=service_id)
+    feedback = service.feedback.all()
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            feeback=form.save(commit=False)
+            feeback.service = service
+            feeback.user = request.user
+            feeback.save()
+            return redirect('vendor:service_detail_view' , service_id=service.id)
+        else:
+            print(form.errors)
+    else:
+        form=FeedbackForm()
+    return render(request, 'vendor/service_detail.html', {'service': service , 'feedback':feedback})
+
 def delete_service_view(request , service_id):
     service = Service.objects.get(id=service_id)
     service.delete()

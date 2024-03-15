@@ -62,3 +62,9 @@ class Booking(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.service.service_title}"
+    
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE , related_name='feedback')
+    feedback_text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now , null=True, blank=True)
