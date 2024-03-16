@@ -49,6 +49,7 @@ def vendor_profile_edit_view(request):
 
 
 def service_add_view(request):
+    categories = Service_Category.objects.all()
     if request.method == 'POST':
         form = ServiceCreateForm(request.POST, request.FILES)
         if form.is_valid():
@@ -56,9 +57,11 @@ def service_add_view(request):
             service.user = request.user  # Assign the current user to the service's user field
             service.save()
             return redirect('vendor:my_service_detail_view' , id=request.user.id)
+        else:
+            print(form.errors)
     else:
         form = ServiceCreateForm()
-    return render(request, 'vendor/Service_create_form.html', {'form': form})
+    return render(request, 'vendor/Service_create_form.html', {'form': form , 'categories': categories})
 
 def my_service_detail_view(request, id):
     user = User.objects.get(id=id)  # Replace Vendor with your actual vendor model

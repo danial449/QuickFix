@@ -29,7 +29,7 @@
 {% endif %}
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-12">
+        <div class="col-lg-8 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
             <div class="post-image">
                 <img src="{{service.service_image.url}}" alt="img" loading="lazy">
             </div>
@@ -45,10 +45,10 @@
             </div>
             <div class="post-content">
                 <h3>{{service.service_title}}</h3>
-                <p>{{service.description}}</p>
+                <p>{{service.description | safe}}</p>
             </div>
         </div>
-        <div class="col-lg-4 col-md-12 recent-post-section">
+        <div class="col-lg-4 col-md-12 recent-post-section wow fadeInUp" data-wow-delay="0.5s">
             <h3>Other Details</h3>
             <div class="recent-post py-2 px-4">
                 <i class="fa fa-check text-primary flex-shrink-0 me-2"></i>
@@ -79,7 +79,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-6 col-sm-12 comment-section py-3">
+            <div class="col-lg-6 col-sm-12 comment-section py-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="comments">
                     <h4>Feedbacks:</h4>
                     {% if feedback %}
@@ -98,7 +98,7 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12  comment-form p-3">
+            <div class="col-lg-6 col-sm-12  comment-form p-3 wow fadeInUp" data-wow-delay="0.5s">
                 <h4 class="pb-4">Leave Your Feedback</h4>
                 <form action="" method="post">
                     {% csrf_token %}

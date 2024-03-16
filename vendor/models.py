@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import User
 from django.utils import timezone
+from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -37,7 +38,7 @@ class Service(models.Model):
     service_title = models.CharField(max_length=50,null=True, blank=True)
     service_image = models.ImageField(upload_to='service_images/')
     categories=models.ForeignKey(Service_Category ,on_delete=models.CASCADE , blank=True ,null=True, related_name='category') 
-    description = models.TextField(max_length=500,null=True, blank=True)
+    description = HTMLField(null=True, blank=True)
 
     def __str__(self):
         return str(self.service_title)
