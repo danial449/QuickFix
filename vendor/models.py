@@ -37,7 +37,7 @@ class Service(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True ,null=True)
     service_title = models.CharField(max_length=50,null=True, blank=True)
     service_image = models.ImageField(upload_to='service_images/')
-    categories=models.ForeignKey(Service_Category ,on_delete=models.CASCADE , blank=True ,null=True, related_name='category') 
+    categories=models.ForeignKey(Service_Category ,on_delete=models.CASCADE , blank=True ,null=True, related_name='services') 
     description = HTMLField(null=True, blank=True)
 
     def __str__(self):

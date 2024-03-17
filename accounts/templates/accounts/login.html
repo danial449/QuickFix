@@ -9,13 +9,11 @@
             <h2>Login</h2>
             
             <!-- Error message display -->
-    {% if messages %}
-       {% for message in messages %}
-            <div class="error-message">
-             {{ message }}
-            </div>
-         {% endfor %}
-    {% endif %}
+            {% if messages %}
+                    {% for message in messages %}
+                        <p class="text-center">{{ message }}</p>
+                    {% endfor %}
+            {% endif %}
           <!-- Other HTML content -->
 
             <form action="" method="post">

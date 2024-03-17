@@ -1,27 +1,137 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Blog Detail{% endblock title %}
-
+{% block css %}
+<link rel="stylesheet" href="{% static 'vendor/css/service_detail.css'%}">{% endblock css %}
 {% block content %}
-{% include "blog/blognav.html" %}
-<h2>{{post.title}}</h2>
-<p>@{{post.author}} on {{post.published_date}}</p>
-<p>{{post.text|safe}}</p>
-<h4>Comments:</h4>
-{% if comments %}
-{% for comment in comments  %}
-<div class="card mt-3">
-    <div class="card-body">
-        <h6 class="card-subtitle mb-2 text-muted">{{comment.author}} on {{comment.created_date}}</h6>
-        <p class="card-text">{{comment.text}}</p>
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-4 text-white animated slideInDown mb-4">{{post.title}}</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a class="text-white" href="{% url "customer:home" %}">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="{% url "blog:post_list" %}">Blogs</a></li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page">{{post.title}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success m-0" role="alert">
+    {{message}}
+</div>
+
+{% endfor %}
+{% endif %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <!--Post Details section-->
+        <div class="col-lg-8 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="post-image">
+                <img src="{{post.post_image.url}}" alt="img" loading="lazy">
+            </div>
+            <div class="post-info btn-primary d-flex">
+                <h5><span><ion-icon name="chatbubbles"></ion-icon></span>{{ post.comments.all|length }}
+                </h5>
+            </div>
+
+            <div class="author d-flex">
+                <h6><ion-icon name="person-circle-outline"></ion-icon>{{post.author.first_name}}
+                    {{post.author.last_name}} on {{post.published_date}}</h6>
+
+            </div>
+            <div class="post-content">
+                <h3>{{post.post_title}}</h3>
+                <p>{{post.text | safe}}</p>
+            </div>
+        </div>
+        <!--Recent Post section-->
+        <div class="col-lg-4 col-md-12 recent-post-section wow fadeInUp" data-wow-delay="0.5s">
+            <h3>Recent Post</h3>
+            {% for post in recent_post  %}
+            <div class="recent-post py-2 px-4">
+                <i class="fa fa-book text-primary flex-shrink-0 me-2"></i>
+                <h6 class="mb-0"><a href="{% url 'blog:post_details' post.pk%}">{{post.title}}</a></h6>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row justify-content-center">
+            <!--Comments section-->
+            <div class="col-lg-6 col-sm-12 comment-section py-3 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="comments">
+                    <h4>Comments:</h4>
+                    {% if comments %}
+                    {% for comment in comments %}
+                    <div class="card mt-3">
+                        <div class="card-body ">
+                            <h6 style="font-style: italic; font-size: 12px;" class="card-subtitle mb-2 text-muted">
+                                @{{comment.author}} on {{comment.created_date|date:"j F, Y"}}</h6>
+                            <p class="card-text">{{comment.text}}</p>
+                        </div>
+                    </div>
+
+                    
+                    {% endfor %}
+                    {% else %}
+                    <p class="text-muted">No Comments!</p>
+                    {% endif %}
+                    <!--Pagination Start-->
+                    <div class="container-fluid pt-3 wow fadeIn" data-wow-delay="0.1s">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+           
+                                  {% if comments.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="/blogs/details/{{post.pk}}?page={{comments.previous_page_number}}" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                  </li>
+                                  {% endif %}
+                         
+                                  {% for n in totalpagelist %}
+                                  <li class="page-item"><a class="page-link" href="/blogs/details/{{post.pk}}?page={{n}}">{{n}}</a></li>
+                                  {% endfor %}
+                         
+                                {% if comments.has_next %}
+                                <li class="page-item">
+                                  <a class="page-link" href="/blogs/details/{{post.pk}}?page={{comments.next_page_number}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                  </a>
+                                </li>   
+                            {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--Pagination End-->
+                </div>
+            </div>
+
+            <!--Add Comment section-->
+            <div class="col-lg-6 col-sm-12  comment-form p-3 wow fadeInUp" data-wow-delay="0.5s">
+                <h4 class="pb-4">Leave Your Comment</h4>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control bg-light border-0" name="text"
+                                placeholder="Enter comment Here.." id="message" style="height: 200px"></textarea>
+                            <label for="message">Comment</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="user" value="{{ request.user.id }}">
+                    <input type="hidden" name="service" value="{{ service.id }}">
+                    <div class="col-12">
+                        <button class="btn btn-primary w-100 py-3 mt-3" type="submit">Submit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 </div>
-{% endfor %}
-{% else %} 
-<p class="text-muted">No Comments!</p>
-{% endif %}
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
 {% endblock content %}

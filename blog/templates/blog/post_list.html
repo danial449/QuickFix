@@ -2,15 +2,82 @@
 {% block title %}All Blogs{% endblock title %}
 
 {% block content %}
-{% include "blog/blognav.html" %}
-{% for post in posts  %}
-<div class="card mt-3">
-    <div class="card-body">
-        <h5 class="card-title">{{post.title}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">@{{post.author}}</h6>
-        <p class="card-text">{{post.text|truncatewords:50|safe}}</p>
-        <a href="{% url 'blog:post_details' post.pk%}" class="btn btn-primary">Read More</a>
+
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container text-center py-5">
+            <h1 class="display-4 text-white animated slideInDown mb-4">Blogs</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a class="text-white" href="{% url "customer:home" %}">Home</a></li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page">Blogs</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-</div>
-{% endfor %}
+    <!-- Page Header End -->
+
+
+    <!-- Service Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-end mb-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="border-start border-5 border-primary ps-4">
+                        <h6 class="text-body text-uppercase mb-2">All Blogs</h6>
+                        <h1 class="display-6 mb-0">New Updates & Highlights</h1>
+                    </div>
+                </div>
+                {% comment %} <div class="col-lg-6 text-lg-end wow fadeInUp" data-wow-delay="0.3s">
+                    <a class="btn btn-primary py-3 px-5" href="">More Services</a>
+                </div> {% endcomment %}
+            </div>
+            <div class="row g-4 justify-content-center">
+                {% for post in posts %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="service-item bg-light overflow-hidden h-100">
+                        <img class="img-fluid" src="{{post.post_image.url}}" alt="post featured">
+                        <div class="service-text position-relative text-center h-100 p-4">
+                            <h5 class="mb-3">{{ post.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@{{post.author}}</h6>
+                            <p>{{ post.text|truncatewords:10|safe }}</p>
+                            <a class="small" href="{% url 'blog:post_details' post.pk%}">READ MORE<i class="fa fa-arrow-right ms-3"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Service End -->
+
+    <!--Pagination Start-->
+    <div class="container-fluid wow fadeIn" data-wow-delay="0.2s">
+       <nav aria-label="Page navigation example wow fadeIn" data-wow-delay="0.1s">
+        <ul class="pagination justify-content-center">
+
+            {% if posts.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{posts.previous_page_number}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {% endif %}
+
+            {% for n in totalpagelist %}
+            <li class="page-item"><a class="page-link" href="?page={{n}}">{{n}}</a></li>
+            {% endfor %}
+
+          {% if services.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{posts.next_page_number}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>   
+        {% endif %}
+        </ul>
+       </nav>
+    </div>
+    <!--Pagination End-->
+
 {% endblock content %}

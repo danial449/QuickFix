@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.contrib import messages
 from .forms import *
 from .models import *
+from django.core.paginator import Paginator
 # Create your views here.
 
 def vendor_profile_detail_view(request):
@@ -74,6 +75,12 @@ def my_service_detail_view(request, id):
 def service_detail_view(request, service_id):
     service = Service.objects.get(id=service_id)
     feedback = service.feedback.all()
+    # pagination of feedback
+    paginator = Paginator(feedback , 10)
+    page_number = request.GET.get('page')
+    feedbackfinal = paginator.get_page(page_number)
+    totalpage = feedbackfinal.paginator.num_pages
+
     if request.method == 'POST':
         form = FeedbackForm(request.POST)
         if form.is_valid():
@@ -86,7 +93,31 @@ def service_detail_view(request, service_id):
             print(form.errors)
     else:
         form=FeedbackForm()
-    return render(request, 'vendor/service_detail.html', {'service': service , 'feedback':feedback})
+    
+    context = {
+        'service': service ,
+        'feedback':feedbackfinal,
+        'totalpagelist' : [n+1 for n in range(totalpage)]
+    }
+    return render(request, 'vendor/service_detail.html', context)
+
+def service_in_category(request , category_id):
+    categories = Service_Category.objects.all()
+    category = Service_Category.objects.get(id=category_id)
+    services = category.services.all()
+    # pagination of services
+    paginator = Paginator(services , 6)
+    page_number = request.GET.get('page')
+    servicefinal = paginator.get_page(page_number)
+    totalpage = servicefinal.paginator.num_pages
+
+    context = {
+        'categories':categories,
+        'category':category,
+        'services':servicefinal,
+        'totalpagelist' : [n+1 for n in range(totalpage)]
+    }
+    return render(request , "vendor/service_in_category.html" , context)
 
 def delete_service_view(request , service_id):
     service = Service.objects.get(id=service_id)
@@ -132,7 +163,18 @@ def vendor_dashboard_view(request):
     # Get bookings associated with the vendor's services
     bookings = Booking.objects.filter(service__in=vendor_services).order_by('-id')
 
-    return render(request, 'vendor/vendor_dashboard.html', {'bookings': bookings})
+    # pagination of services
+    paginator = Paginator(bookings , 10)
+    page_number = request.GET.get('page')
+    bookingfinal = paginator.get_page(page_number)
+    totalpage = bookingfinal.paginator.num_pages
+
+    context = {
+        'bookings': bookingfinal,
+        'totalpagelist' : [n+1 for n in range(totalpage)]
+    }
+
+    return render(request, 'vendor/vendor_dashboard.html', context)
 
 def user_dashboard_view(request):
     # Retrieve bookings for the current user
@@ -152,8 +194,19 @@ def user_dashboard_view(request):
         }
         booking_details.append(booking_detail)
 
+        # pagination of services
+        paginator = Paginator(booking_details , 10)
+        page_number = request.GET.get('page')
+        bookingfinal = paginator.get_page(page_number)
+        totalpage = bookingfinal.paginator.num_pages
+    
+        context = {
+            'booking_details': bookingfinal,
+            'totalpagelist' : [n+1 for n in range(totalpage)]
+        }
+
     # Pass booking details to the template
-    return render(request, 'vendor/user_dashboard.html', {'booking_details': booking_details})
+    return render(request, 'vendor/user_dashboard.html', context)
 
 def approve_booking_view(request, booking_id, status):
     booking = get_object_or_404(Booking, id=booking_id)

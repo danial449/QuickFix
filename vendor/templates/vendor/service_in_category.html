@@ -8,11 +8,12 @@
     <!-- Page Header Start -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-4 text-white animated slideInDown mb-4">Our Services</h1>
+            <h1 class="display-4 text-white animated slideInDown mb-4">{{category.name}}</h1>
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a class="text-white" href="{% url "customer:home" %}">Home</a></li>
-                    <li class="breadcrumb-item text-primary active" aria-current="page">Our Services</li>
+                    <li class="breadcrumb-item"><a class="text-white" href="{% url "customer:service_view" %}">Our Services</a></li>
+                    <li class="breadcrumb-item text-primary active" aria-current="page">{{category.name}}</li>
                 </ol>
             </nav>
         </div>
@@ -87,32 +88,32 @@
     </div>
     <!-- Service End -->
 
-    <!--Pagination Start-->
-    <div class="container-fluid wow fadeIn" data-wow-delay="0.2s">
-       <nav aria-label="Page navigation example wow fadeIn" data-wow-delay="0.1s">
-        <ul class="pagination justify-content-center">
-
-            {% if services.has_previous %}
-            <li class="page-item">
-              <a class="page-link" href="/service/?page={{services.previous_page_number}}" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
+       <!--Pagination Start-->
+       <div class="container-fluid wow fadeIn" data-wow-delay="0.1s">
+           <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+    
+                {% if services.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="/service-category/{{category.id}}?page={{services.previous_page_number}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                {% endif %}
+    
+                {% for n in totalpagelist %}
+                <li class="page-item"><a class="page-link" href="/service-category/{{category.id}}?page={{n}}">{{n}}</a></li>
+                {% endfor %}
+    
+              {% if services.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="/service-category/{{category.id}}?page={{services.next_page_number}}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>   
             {% endif %}
-
-            {% for n in totalpagelist %}
-            <li class="page-item"><a class="page-link" href="/service/?page={{n}}">{{n}}</a></li>
-            {% endfor %}
-
-          {% if services.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="/service/?page={{services.next_page_number}}" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>   
-        {% endif %}
-        </ul>
-       </nav>
-    </div>
+            </ul>
+        </nav>
+       </div>
     <!--Pagination End-->
 {% endblock content %}

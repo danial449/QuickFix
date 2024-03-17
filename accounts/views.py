@@ -9,7 +9,7 @@ from vendor.models import Vendor_Profile
 # Create your views here.
 
 def user_register_view(request):
-    msg = None
+
     if request.method == 'POST':
         form = CustomerSignUpForm(request.POST)
         if form.is_valid():
@@ -33,10 +33,10 @@ def user_register_view(request):
             print("Form is not valid:", form.errors)
     else:
         form = CustomerSignUpForm()
-    return render(request , "accounts/register.html", {'form':form , 'msg':msg})
+    return render(request , "accounts/register.html", {'form':form})
 
 def vendor_register_view(request):
-    msg = None
+    
     if request.method == 'POST':
         form = VendorSignUpForm(request.POST , request.FILES)
         if form.is_valid():
@@ -66,7 +66,7 @@ def vendor_register_view(request):
             print("Form is not valid:", form.errors)
     else:
         form = VendorSignUpForm()
-    return render(request , "accounts/vendor_register.html", {'form':form , 'msg':msg})
+    return render(request , "accounts/vendor_register.html", {'form':form})
 
 
 # def admin_register_view(request):
@@ -109,13 +109,13 @@ def user_login_view(request):
                 login(request, user)
                 return redirect('customer:home')
             else:
-                msg = 'Invalid Credentials'
+                messages.success(request, 'Invalid Credentials')
             
         else:   
             print(form.errors)
     else:
         form = LoginForm()
-    return render(request , 'accounts/login.html', {'form':form , 'msg':msg})
+    return render(request , 'accounts/login.html', {'form':form})
 
 def user_logout_view(request):
     logout(request)

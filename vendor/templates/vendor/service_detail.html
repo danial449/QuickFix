@@ -11,7 +11,7 @@
             <nav aria-label="breadcrumb animated slideInDown">
                 <ol class="breadcrumb justify-content-center mb-0">
                     <li class="breadcrumb-item"><a class="text-white" href="{% url "customer:home" %}">Home</a></li>
-                    <li class="breadcrumb-item"><a class="text-white" href="">Our Services</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="{% url "customer:service_view" %}">Our Services</a></li>
                     <li class="breadcrumb-item"><a class="text-white" href="">{{service.categories.name}}</a></li>
                     <li class="breadcrumb-item text-primary active" aria-current="page">{{service.service_title}}</li>
                 </ol>
@@ -29,6 +29,7 @@
 {% endif %}
 <div class="container-fluid">
     <div class="row justify-content-center">
+        <!--Service Details section-->
         <div class="col-lg-8 col-md-12 wow fadeInUp" data-wow-delay="0.1s">
             <div class="post-image">
                 <img src="{{service.service_image.url}}" alt="img" loading="lazy">
@@ -48,6 +49,7 @@
                 <p>{{service.description | safe}}</p>
             </div>
         </div>
+        <!--other details section-->
         <div class="col-lg-4 col-md-12 recent-post-section wow fadeInUp" data-wow-delay="0.5s">
             <h3>Other Details</h3>
             <div class="recent-post py-2 px-4">
@@ -79,6 +81,7 @@
         </div>
 
         <div class="row justify-content-center">
+            <!--Feedbacks section-->
             <div class="col-lg-6 col-sm-12 comment-section py-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="comments">
                     <h4>Feedbacks:</h4>
@@ -92,12 +95,44 @@
                             <p class="card-text">{{feedback.feedback_text}}</p>
                         </div>
                     </div>
+
+                    
                     {% endfor %}
                     {% else %}
                     <p class="text-muted">No Feedback!</p>
                     {% endif %}
+                    <!--Pagination Start-->
+                    <div class="container-fluid pt-3 wow fadeIn" data-wow-delay="0.1s">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+           
+                                  {% if feedback.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="/service-details/{{service.id}}?page={{feedback.previous_page_number}}" aria-label="Previous">
+                                      <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                  </li>
+                                  {% endif %}
+                         
+                                  {% for n in totalpagelist %}
+                                  <li class="page-item"><a class="page-link" href="/service-details/{{service.id}}?page={{n}}">{{n}}</a></li>
+                                  {% endfor %}
+                         
+                                {% if feedback.has_next %}
+                                <li class="page-item">
+                                  <a class="page-link" href="/service-details/{{service.id}}?page={{feedback.next_page_number}}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                  </a>
+                                </li>   
+                            {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--Pagination End-->
                 </div>
             </div>
+
+            <!--Add Feedback section-->
             <div class="col-lg-6 col-sm-12  comment-form p-3 wow fadeInUp" data-wow-delay="0.5s">
                 <h4 class="pb-4">Leave Your Feedback</h4>
                 <form action="" method="post">
@@ -120,4 +155,6 @@
         </div>
     </div>
 </div>
+
+
 {% endblock content %}

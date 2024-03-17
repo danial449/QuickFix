@@ -9,6 +9,7 @@ urlpatterns = [
     path("add-service/", service_add_view, name="service_add_view"),
     path("my-services/<int:id>", my_service_detail_view, name="my_service_detail_view"),
     path("service-details/<int:service_id>", service_detail_view, name="service_detail_view"),
+    path("service-category/<int:category_id>", service_in_category, name="service_in_category"),
     path("my-services/delete/<int:service_id>", delete_service_view, name="delete_service_view"),
      path("vendor-dashboard/", vendor_dashboard_view, name="vendor_dashboard"),
     path("user-dashboard/", user_dashboard_view, name="user_dashboard"),

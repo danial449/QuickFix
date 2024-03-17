@@ -11,19 +11,30 @@ from django.contrib.auth.views import PasswordResetConfirmView
 from .forms import *
 from .models import *
 from vendor.models import *
+from django.core.paginator import Paginator
 # Create your views here.
 def home_view(request):
     return render(request , "customer/home.html")
+
 def about_us_view(request):
     return render(request , "customer/about_us.html")
-def gallery_view(request):
-    return render(request , "customer/gallery.html")
+
 def service_view(request):
     services = Service.objects.all().order_by('-id')
+    categories = Service_Category.objects.all()
+    # pagination of services
+    paginator = Paginator(services , 6)
+    page_number = request.GET.get('page')
+    servicefinal = paginator.get_page(page_number)
+    totalpage = servicefinal.paginator.num_pages
+
     context ={
-        'services':services
+        'services':servicefinal,
+        'categories':categories,
+        'totalpagelist' : [n+1 for n in range(totalpage)]
     }
     return render(request , "customer/service.html", context)
+
 def contact_us_view(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
