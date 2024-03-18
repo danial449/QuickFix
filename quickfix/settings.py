@@ -155,7 +155,7 @@ AUTH_USER_MODEL = 'accounts.User'
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
-LOGIN_URL = 'accounts:login' #ye default url hy login ka 
+LOGIN_URL = 'accounts:user_login_view' #ye default url hy login ka 
 # LOGIN_URL = 'accounts:register' ye login url default nhi hy  agr me jb profile bnaunga aur agr mera account nhi bna hua phly kbhi then ye mujyy register page pr ly jaye ga
 
 #LOGIN_REDIRECT_URL = "/" # --ye login ho kr kis page pr jaye ga after login

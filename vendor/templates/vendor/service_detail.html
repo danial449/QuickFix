@@ -19,14 +19,18 @@
         </div>
     </div>
     <!-- Page Header End -->
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-success m-0" role="alert">
-    {{message}}
-</div>
 
-{% endfor %}
-{% endif %}
+    <!--Message Start-->
+    {% if messages %}
+    {% for message in messages  %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="fa fa-check-circle" aria-hidden="true"></i> {{message}}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <!--Message End-->
+
 <div class="container-fluid">
     <div class="row justify-content-center">
         <!--Service Details section-->
@@ -75,7 +79,16 @@
             <div class="col-12">
                 <form action="{% url 'vendor:book_service' service.id %}" method="post">
                     {% csrf_token %}
+                    {% if user.is_authenticated %}
                     <button class="btn btn-primary w-100 py-3 mt-3" type="submit">BOOK NOW</button>
+                    {% else %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please <a href="{% url 'accounts:user_login_view' %}">log in</a> to make a booking.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    <button class="btn btn-primary w-100 py-3 mt-3 disabled" type="submit">BOOK NOW</button>
+                    {% endif %}
+                    
                 </form>
             </div>
         </div>
@@ -147,7 +160,16 @@
                     <input type="hidden" name="user" value="{{ request.user.id }}">
                     <input type="hidden" name="service" value="{{ service.id }}">
                     <div class="col-12">
+                        {% if user.is_authenticated %}
                         <button class="btn btn-primary w-100 py-3 mt-3" type="submit">Submit</button>
+                        {% else %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please <a href="{% url 'accounts:user_login_view' %}">log in</a> to make a feedback.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                          <button class="btn btn-primary w-100 py-3 mt-3 disabled" type="submit">Submit</button>
+                        {% endif %}
+                        
                     </div>
 
                 </form>

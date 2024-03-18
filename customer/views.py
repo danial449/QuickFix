@@ -12,6 +12,7 @@ from .forms import *
 from .models import *
 from vendor.models import *
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home_view(request):
     return render(request , "customer/home.html")
@@ -40,19 +41,22 @@ def contact_us_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Your message has been successfully submitted! We'll get back to you as soon as possible. Thank you for reaching out.")
+            return redirect('customer:contact')
         else:
             print(form.errors)
     else:
         form = ContactForm()
     return render(request  , 'customer/contact_us.html' , {'form':form})
 
+@login_required
 # Detial View of profile
 def user_profile_detail_view(request):
     user_profile = User_Profile.objects.get(user=request.user)
     
     return render(request, 'customer/profile.html', {'user_profile': user_profile})
 
-
+@login_required
 # Edit Detail view of Profile
 def user_profile_edit_view(request):
     user_profile = User_Profile.objects.get(user=request.user)

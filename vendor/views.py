@@ -5,8 +5,9 @@ from django.contrib import messages
 from .forms import *
 from .models import *
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-
+@login_required
 def vendor_profile_detail_view(request):
     vendor_profile = Vendor_Profile.objects.get(user=request.user)
     
@@ -14,7 +15,7 @@ def vendor_profile_detail_view(request):
 
 
 
-
+@login_required
 def vendor_profile_edit_view(request):
     vendor_profile = Vendor_Profile.objects.get(user=request.user)
     
@@ -48,7 +49,7 @@ def vendor_profile_edit_view(request):
 
     return render(request, 'vendor/profile.html', {'form': form})
 
-
+@login_required
 def service_add_view(request):
     categories = Service_Category.objects.all()
     if request.method == 'POST':
@@ -64,6 +65,7 @@ def service_add_view(request):
         form = ServiceCreateForm()
     return render(request, 'vendor/Service_create_form.html', {'form': form , 'categories': categories})
 
+@login_required
 def my_service_detail_view(request, id):
     user = User.objects.get(id=id)  # Replace Vendor with your actual vendor model
 
@@ -76,7 +78,7 @@ def service_detail_view(request, service_id):
     service = Service.objects.get(id=service_id)
     feedback = service.feedback.all()
     # pagination of feedback
-    paginator = Paginator(feedback , 10)
+    paginator = Paginator(feedback , 5)
     page_number = request.GET.get('page')
     feedbackfinal = paginator.get_page(page_number)
     totalpage = feedbackfinal.paginator.num_pages
@@ -88,6 +90,7 @@ def service_detail_view(request, service_id):
             feeback.service = service
             feeback.user = request.user
             feeback.save()
+            messages.success(request, "Submit Successfully! Thank you for your feedback.")
             return redirect('vendor:service_detail_view' , service_id=service.id)
         else:
             print(form.errors)
@@ -119,11 +122,14 @@ def service_in_category(request , category_id):
     }
     return render(request , "vendor/service_in_category.html" , context)
 
+@login_required
 def delete_service_view(request , service_id):
     service = Service.objects.get(id=service_id)
     service.delete()
+    messages.success(request, "Service successfully deleted. If you need further assistance, feel free to contact us.")
     return redirect('vendor:my_service_detail_view' , id=request.user.id)
 
+@login_required
 def book_service_view(request, service_id):
     service = Service.objects.get(id=service_id)
 
@@ -146,16 +152,19 @@ def book_service_view(request, service_id):
             status=status
         )
         booking.save()
-
+        messages.success(request, "Service Booked Successfully")
         return redirect('vendor:user_dashboard')
 
     return render(request, 'vendor/user_dashboard.html', {'service': service})
 
+@login_required
 def delete_booking_view(request , booking_id):
     booking = Booking.objects.get(id=booking_id)
     booking.delete()
+    messages.success(request, "Booking successfully deleted. If you need further assistance, feel free to contact us.")
     return redirect('vendor:vendor_dashboard')
 
+@login_required
 def vendor_dashboard_view(request):
     # Get services created by the vendor
     vendor_services = Service.objects.filter(user=request.user)
@@ -176,6 +185,7 @@ def vendor_dashboard_view(request):
 
     return render(request, 'vendor/vendor_dashboard.html', context)
 
+@login_required
 def user_dashboard_view(request):
     # Retrieve bookings for the current user
     bookings = Booking.objects.filter(user=request.user).order_by('-id')
@@ -208,15 +218,19 @@ def user_dashboard_view(request):
     # Pass booking details to the template
     return render(request, 'vendor/user_dashboard.html', context)
 
+@login_required
 def approve_booking_view(request, booking_id, status):
     booking = get_object_or_404(Booking, id=booking_id)
 
     # Additional logic to set the approved time and update other details
     if status == 'Booked':
         booking.status = 'Booked'
+        messages.success(request, "Booking successfully approved. Thank you for confirming!")
+       
         # Additional logic for booked status if needed
     elif status == 'Cancelled':
         booking.status = 'Cancelled'
+        messages.success(request, "Booking successfully cancelled. We hope to assist you with future bookings.")
         # Additional logic for cancelled status if needed
 
     booking.save()

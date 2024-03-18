@@ -17,6 +17,17 @@
   </div>
   <!-- Page Header End -->
 
+  <!--Message Start-->
+  {% if messages %}
+  {% for message in messages  %}
+  <div class="container alert alert-success alert-dismissible fade show" role="alert">
+    <i class="fa fa-check-circle" aria-hidden="true"></i> {{message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  <!--Message End-->
+
   <!--Bookings Start-->
 <div class="container py-2 wow fadeIn" data-wow-delay="0.3s">
   <div class="table-responsive-md">
