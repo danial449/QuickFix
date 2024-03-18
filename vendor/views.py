@@ -204,16 +204,16 @@ def user_dashboard_view(request):
         }
         booking_details.append(booking_detail)
 
-        # pagination of services
-        paginator = Paginator(booking_details , 10)
-        page_number = request.GET.get('page')
-        bookingfinal = paginator.get_page(page_number)
-        totalpage = bookingfinal.paginator.num_pages
-    
-        context = {
-            'booking_details': bookingfinal,
-            'totalpagelist' : [n+1 for n in range(totalpage)]
-        }
+    # pagination of services
+    paginator = Paginator(booking_details , 10)
+    page_number = request.GET.get('page')
+    bookingfinal = paginator.get_page(page_number)
+    totalpage = bookingfinal.paginator.num_pages
+
+    context = {
+        'booking_details': bookingfinal,
+        'totalpagelist' : [n+1 for n in range(totalpage)]
+    }
 
     # Pass booking details to the template
     return render(request, 'vendor/user_dashboard.html', context)

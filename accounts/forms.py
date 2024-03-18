@@ -54,6 +54,6 @@ class VendorSignUpForm(CommonSignUpForm):
 
     class Meta(CommonSignUpForm.Meta):
         model = User
-        fields = CommonSignUpForm.Meta.fields + ('mobile_no', 'address1', 'address2', 'city', 'province', 'employee', 'cnic', 'shop_reference', 'vendor_image')
+        fields = CommonSignUpForm.Meta.fields + ('mobile_no', 'address1', 'address2', 'city', 'province', 'employee', 'cnic', 'shop_reference', 'vendor_image' , 'is_email_verified' , 'email_verification_token')
 
 

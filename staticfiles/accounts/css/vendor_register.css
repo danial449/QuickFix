@@ -1,6 +1,6 @@
 .main {
     min-height: 70vh;
-    background-image: url("https://w0.peakpx.com/wallpaper/141/754/HD-wallpaper-3d-white-texture-white-geometric-texture-3d-white-background-3d-gypsum-white-texture-white-creative-background.jpg");
+    background-image: url("https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -8,6 +8,10 @@
     align-items: center;
     flex-wrap: wrap;
     padding: 50px 0px;
+}
+
+.login h2 {
+    color: #000;
 }
 
 .wrapper {
@@ -49,7 +53,7 @@
     left: 5px;
     transform: translateY(-50%);
     font-size: 1em;
-    color: #162938;
+    color: #000;
     font-weight: 500;
     pointer-events: none;
     transition: .5s;
@@ -67,7 +71,7 @@
     border: none;
     outline: none;
     font-size: 1em;
-    color: #162938;
+    color: #000;
     font-weight: 600;
     padding: 0 35px 0 5px;
 }
@@ -76,13 +80,13 @@
     position: absolute;
     right: 8px;
     font-size: 1.2em;
-    color: #162938;
+    color: #000;
     line-height: 57px;
 }
 
 .remember-forget {
     font-size: .9em;
-    color: #162938;
+    color: #000;
     font-weight: 500;
     margin: -15px 0 15px;
     display: flex;
@@ -90,12 +94,12 @@
 }
 
 .remember-forget label input {
-    accent-color: #162938;
+    accent-color: #000;
     margin-right: 3px;
 }
 
 .remember-forget a {
-    color: #162938;
+    color: #000;
     text-decoration: none;
 }
 
@@ -106,7 +110,7 @@
 .submit-register-btn {
     width: 100%;
     height: 45px;
-    background-color: #162938;
+    background-color: #FDA12B;
     border: none;
     outline: none;
     border-radius: 6px;
@@ -118,7 +122,7 @@
 
 .login-as-service-provider {
     font-size: .9em;
-    color: #162938;
+    color: #000;
     text-align: center;
     font-weight: 500;
     margin: 25px 0 10px;
@@ -126,7 +130,7 @@
 
 .login-register {
     font-size: .9em;
-    color: #162938;
+    color: #000;
     text-align: center;
     font-weight: 500;
     /* margin: 25px 0 10px; */
@@ -134,7 +138,7 @@
 
 .login-as-service-provider p a,
 .login-register p a {
-    color: #162938;
+    color: #000;
     text-decoration: none;
     font-weight: 600;
 }

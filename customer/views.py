@@ -15,7 +15,8 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home_view(request):
-    return render(request , "customer/home.html")
+    services = Service.objects.all().order_by('-id')[:6]
+    return render(request , "customer/home.html", {'services':services})
 
 def about_us_view(request):
     return render(request , "customer/about_us.html")

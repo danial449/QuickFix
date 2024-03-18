@@ -10,7 +10,7 @@ admin.site.register(Vendor_Profile , Vendor_Profile_Admin)
 
 
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ( 'id' , 'service_title' , 'service_image' , 'categories' , 'description')
+    list_display = ( 'id' , 'service_title' , 'service_image' , 'categories')
 
 admin.site.register(Service , ServiceAdmin)
 
@@ -30,5 +30,10 @@ class ServiceCategoryAdmin(admin.ModelAdmin):
 admin.site.register(Service_Category , ServiceCategoryAdmin)
 
 
-admin.site.register(Booking)
-admin.site.register(Feedback)
+class Booking_Admin(admin.ModelAdmin):
+    list_display = ('id', 'first_name' , 'last_name', 'username' , 'email' , 'mobile_no' , 'booking_date',  'status')
+admin.site.register(Booking, Booking_Admin)
+
+class Feedback_Admin(admin.ModelAdmin):
+    list_display = ('id', 'user' , 'service', 'feedback_text' , 'created_date')
+admin.site.register(Feedback , Feedback_Admin)
