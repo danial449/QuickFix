@@ -20,11 +20,11 @@ label.btn {
     margin-bottom: 0;
 }
 
-.btn-outline-primary {
+/* .btn-outline-primary {
     border-color: #26B4FF;
     background: transparent;
     color: #26B4FF;
-}
+} */
 
 .btn {
     cursor: pointer;
