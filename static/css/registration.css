@@ -28,6 +28,18 @@
     align-items: center;
 }
 
+@media (max-width: 425px) {
+    .wrapper {
+        width: 330px;
+    }
+}
+
+@media (max-width: 320px) {
+    .wrapper {
+        width: 300px;
+    }
+}
+
 .error-message {
     width: 100%;
     min-height: 20px;
