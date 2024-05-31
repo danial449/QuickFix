@@ -139,6 +139,8 @@ def book_service_view(request, service_id):
         mobile_no = user.mobile_no
         email = user.email
         status = 'Pending'
+        booking_date = request.POST.get('booking_date')
+        instruction = request.POST.get('instruction')
 
         # Create and save booking
         booking = Booking(
@@ -149,7 +151,9 @@ def book_service_view(request, service_id):
             first_name=user.first_name,
             last_name=user.last_name,
             username=user.username,
-            status=status
+            status=status,
+            booking_date = booking_date,
+            instruction = instruction
         )
         booking.save()
         messages.success(request, "Service Booked Successfully")

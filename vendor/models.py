@@ -60,6 +60,7 @@ class Booking(models.Model):
     last_name = models.CharField(max_length=30, null=True, blank=True)
     username = models.CharField(max_length=30, null=True, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    instruction = models.TextField(null=True , blank=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.service.service_title}"

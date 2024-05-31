@@ -35,10 +35,11 @@
       <thead class="bg-primary text-white">
         <tr>
           <th scope="col">Service Title</th>
-          <th scope="col">Booking Date</th>
-          <th scope="col">Customer Name</th>
+          {% comment %} <th scope="col">Booking Date</th> {% endcomment %}
+          <th scope="col">Customer</th>
           <th scope="col">Mobile No</th>
-          <th scope="col">Email</th>
+          {% comment %} <th scope="col">Email</th> {% endcomment %}
+          <th scope="col">Instruction</th>
           <th scope="col">Status</th>
         </tr>
       </thead>
@@ -46,10 +47,44 @@
         {% for booking in bookings %}
           <tr>
             <td>{{ booking.service.service_title }}</td>
-            <td>{{ booking.booking_date }}</td>
+            {% comment %} <td>{{ booking.booking_date }}</td> {% endcomment %}
             <td>{{ booking.first_name }} {{ booking.last_name }}</td>
             <td>{{ booking.mobile_no }}</td>
-            <td>{{ booking.email }}</td>
+            {% comment %} <td>{{ booking.email }}</td> {% endcomment %}
+            <!-- Button trigger modal -->
+            <td style="cursor:pointer;" class="text-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><span>Instruction <i class="fa fa-eye" aria-hidden="true"></i></span></td>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Instructions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="col-12">
+                      <label class="form-label fw-bold">Email :</label>
+                      <div class="border-primary">{{booking.email}}</div>
+                   </div>
+
+                    <div class="col-12 pt-2">
+                      <label class="form-label fw-bold">Booking Date :</label>
+                      <div class="border-primary">{{booking.booking_date}}</div>
+                   </div>
+
+                    <div class="col-12 pt-2">
+                      <label class="form-label fw-bold">Instruction :</label>
+                      <div class="border-primary">{{booking.instruction}}</div>
+                   </div>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
             <td>
             {% if booking.status == "Booked" %}
             <a href="{% url 'vendor:approve_booking' booking.id 'Booked' %}" class="btn btn-success disabled">Book</a>

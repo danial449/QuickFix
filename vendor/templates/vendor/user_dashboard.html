@@ -37,7 +37,7 @@
       <thead class="bg-primary text-white">
         <tr>
           <th scope="col">Name</th>
-          <th scope="col">Username</th>
+          {% comment %} <th scope="col">Username</th> {% endcomment %}
           <th scope="col">Service</th>
           <th scope="col">Mobile No</th>
           <th scope="col">Email</th>
@@ -49,7 +49,7 @@
         {% for booking_detail in booking_details %}
           <tr>
             <td>{{ booking_detail.service_creator.first_name }} {{ booking_detail.service_creator.last_name }}</td>
-            <td>{{ booking_detail.service_creator.username }}</td>
+            {% comment %} <td>{{ booking_detail.service_creator.username }}</td> {% endcomment %}
             <td>{{ booking_detail.booking.service.service_title }}</td>
             <td>{{ booking_detail.service_creator.mobile_no }}</td>
             <td>{{ booking_detail.service_creator.email }}</td>

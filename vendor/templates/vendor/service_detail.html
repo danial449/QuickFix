@@ -80,7 +80,34 @@
                 <form action="{% url 'vendor:book_service' service.id %}" method="post">
                     {% csrf_token %}
                     {% if user.is_authenticated %}
-                    <button class="btn btn-primary w-100 py-3 mt-3" type="submit">BOOK NOW</button>
+                    <!-- Button trigger modal -->
+                    <button class="btn btn-primary w-100 py-3 mt-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">BOOK NOW</button>
+
+                    <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Booking Instructions</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="col-12">
+                                <label class="form-label">Date & Time</label>
+                                <input type="datetime-local" id="datetime" name="booking_date" class="form-control" required>
+                            </div>
+                            <div class="col-12 mt-2">
+                                <label class="form-label">Additional Instruction</label>
+                                <textarea name="instruction" id="instruction" name="instruction" class="form-control" required></textarea>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     {% else %}
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                         <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Please <a href="{% url 'accounts:user_login_view' %}">log in</a> to make a booking.
