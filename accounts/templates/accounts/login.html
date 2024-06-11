@@ -28,8 +28,8 @@
                 </div>
 
                 <div class="input-box">
-                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" name="password"  required>
+                    <span id="eyeicon" class="icon"><ion-icon name="eye-off"></ion-icon></span>
+                    <input id="password" type="password" name="password"  required>
                     <label for="">Password</label>
                 </div>
 
@@ -51,4 +51,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    let eyeicon = document.getElementById("eyeicon");
+    let password = document.getElementById("password");
+
+    eyeicon.onclick = function () {
+      if (password.type == "password") {
+        password.type = "text";
+        eyeicon.innerHTML = '<ion-icon name="eye"></ion-icon>';
+      } else {
+        password.type = "password";
+        eyeicon.innerHTML = '<ion-icon name="eye-off"></ion-icon>';
+      }
+    };
+  </script>
 {% endblock content %}

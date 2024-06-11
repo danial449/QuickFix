@@ -53,14 +53,14 @@
                 </div>
 
                 <div class="input-box">
-                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" name="password1" required>
+                    <span id="eyeicon" class="icon"><ion-icon name="eye-off"></ion-icon></span>
+                    <input id="password" type="password" name="password1" required>
                     <label for="">Password</label>
                 </div>
 
                 <div class="input-box">
-                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                    <input type="password" name="password2" required>
+                    <span id="eyeicon2" class="icon"><ion-icon name="eye-off"></ion-icon></span>
+                    <input id="password2" type="password" name="password2" required>
                     <label for="">Confirm Password</label>
                 </div>
 
@@ -77,4 +77,32 @@
         </div>
     </div>
 </div>
+
+<script>
+    let eyeicon = document.getElementById("eyeicon");
+    let password = document.getElementById("password");
+
+    eyeicon.onclick = function () {
+      if (password.type == "password") {
+        password.type = "text";
+        eyeicon.innerHTML = '<ion-icon name="eye"></ion-icon>';
+      } else {
+        password.type = "password";
+        eyeicon.innerHTML = '<ion-icon name="eye-off"></ion-icon>';
+      }
+    };
+
+    let eyeicon2 = document.getElementById("eyeicon2");
+    let password2 = document.getElementById("password2");
+
+    eyeicon2.onclick = function () {
+      if (password2.type == "password") {
+        password2.type = "text";
+        eyeicon2.innerHTML = '<ion-icon name="eye"></ion-icon>';
+      } else {
+        password2.type = "password";
+        eyeicon2.innerHTML = '<ion-icon name="eye-off"></ion-icon>';
+      }
+    };
+  </script>
 {% endblock content %}

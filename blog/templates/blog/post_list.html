@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}All Blogs{% endblock title %}
-
+{% block css %}
+<link rel="stylesheet" href="{% static ''%}">{% endblock css %}
 {% block content %}
 
     <!-- Page Header Start -->
@@ -38,9 +40,8 @@
                     <div class="service-item bg-light overflow-hidden h-100">
                         <img class="img-fluid" src="{{post.post_image.url}}" alt="post featured">
                         <div class="service-text position-relative text-center h-100 p-4">
-                            <h5 class="mb-3">{{ post.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@{{post.author}}</h6>
-                            <p>{{ post.text|truncatewords:10|safe }}</p>
+                            <h5 class="mb-2">{{ post.title }}</h5>
+                            <p class="card-subtitle mb-2 text-muted">@{{post.author}}</p>
                             <a class="small" href="{% url 'blog:post_details' post.pk%}">READ MORE<i class="fa fa-arrow-right ms-3"></i></a>
                         </div>
                     </div>
