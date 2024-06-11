@@ -9,7 +9,8 @@ class User(AbstractUser):
     CATAGORY_CHOICES = [('Punjab' ,'Punjab') ,('Sindh' ,'Sindh'),('Khyber Pakhtunkhwa','Khyber Pakhtunkhwa'),('Gilgit-Baltistan' ,'Gilgit-Baltistan') ,('Islamabad Capital Territory' ,'Islamabad Capital Territory'),('Balochistan','Balochistan'),]
 
     CATAGORY_EMP= [('Electrician' ,'Electrician'),('Plumber' ,'Plumber'),('Sweaper' ,'Sweaper'),('Carpenter' ,'Carpenter'),('Drain clean' ,'Drain clean'),('AC repair' ,'AC repair'),('Painting & Decorating' ,'Painting & Decorating'),]
-  
+
+    email = models.EmailField(null=True , unique=True)
     mobile_no = models.CharField(max_length=11 ,null=True, blank=True)
     address1 = models.CharField(max_length=200,default='abc')
     address2 = models.CharField(max_length=200,default='abc')

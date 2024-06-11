@@ -90,6 +90,8 @@ def vendor_register_view(request):
             recipeient_list = [user.email]
             send_mail(subject, message, email_from, recipeient_list)
 
+            messages.success(request, "Thank you for registering! Please check your email to verify your account before logging in.")
+
             return redirect('accounts:user_login_view')
         else:
             print("Form is not valid:", form.errors)

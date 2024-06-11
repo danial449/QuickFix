@@ -6,6 +6,9 @@ from .forms import *
 from .models import *
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.conf import settings
 # Create your views here.
 @login_required
 def vendor_profile_detail_view(request):
@@ -157,6 +160,14 @@ def book_service_view(request, service_id):
         )
         booking.save()
         messages.success(request, "Service Booked Successfully")
+
+        current_site = get_current_site(request)
+        subject = 'New Booking'
+        message = f'New Booking Request \nName : {user.first_name} {user.last_name} \nService : {service}'
+        email_from = settings.DEFAULT_FROM_EMAIL
+        recipeient_list = ['admin@gmail.com']
+        send_mail(subject, message, email_from, recipeient_list)
+        
         return redirect('vendor:user_dashboard')
 
     return render(request, 'vendor/user_dashboard.html', {'service': service})
